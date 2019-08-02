@@ -1,0 +1,14 @@
+{
+    "Vnet": true,
+    "DC": true,
+    "File": true,
+
+    "SubscriptionID": "<Enter customer subscription>",
+    "AzLocation": "eastus2",
+    "VNetResourceGroup": "RG-WVD-VNet",
+    "VmResourceGroup": "RG-WVD-InfVMs",
+
+    "VNetDeploymentName": "WVDVNet",
+    "DCDeploymentName": "WVDDC",
+    "FileServerDeploymentName": "WVDFile"
+}

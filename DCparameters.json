@@ -1,0 +1,36 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "location": {
+            "value": "eastus2"
+        },
+        "networkInterfaceName": {
+            "value": "dc141"
+        },
+        "networkSecurityGroupName": {
+            "value": "DC-nsg"
+        },
+        "networkSecurityGroupRules": {
+            "value": []
+        },
+        "subnetName": {
+            "value": "wvd"
+        },
+        "virtualNetworkId": {
+            "value": "<Update information between<>>/subscriptions/<12345678-1234-1234-1234-12345678>/resourceGroups/<RG-WVD-VNet>/providers/Microsoft.Network/virtualNetworks/<WVD-Vnet>"
+        },
+        "virtualMachineName": {
+            "value": "DC"
+        },
+        "osDiskType": {
+            "value": "StandardSSD_LRS"
+        },
+        "virtualMachineSize": {
+            "value": "Standard_DS1_v2"
+        },
+        "adminUsername": {
+            "value": "<Enter customer defined username>"
+        }
+    }
+}

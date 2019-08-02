@@ -1,0 +1,62 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "location": {
+            "value": "eastus2"
+        },
+        "networkInterfaceName": {
+            "value": "fileserver88"
+        },
+        "networkSecurityGroupName": {
+            "value": "FileServer-nsg"
+        },
+        "networkSecurityGroupRules": {
+            "value": []
+        },
+        "subnetName": {
+            "value": "wvd"
+        },
+        "virtualNetworkId": {
+            "value": "<Update information between<>>/subscriptions/<12345678-1234-1234-1234-12345678>/resourceGroups/<RG-WVD-VNet>/providers/Microsoft.Network/virtualNetworks/<WVD-Vnet>"
+        },
+        "virtualMachineName": {
+            "value": "FileServer"
+        },
+        "osDiskType": {
+            "value": "StandardSSD_LRS"
+        },
+        "dataDisks": {
+            "value": [
+                {
+                    "lun": 0,
+                    "createOption": "attach",
+                    "caching": "None",
+                    "writeAcceleratorEnabled": false,
+                    "id": null,
+                    "name": "FileServer_ProfileDisk",
+                    "storageAccountType": null,
+                    "diskSizeGB": null
+                }
+            ]
+        },
+        "dataDiskResources": {
+            "value": [
+                {
+                    "name": "FileServer_ProfileDisk",
+                    "diskSizeGB": 64,
+                    "sku": "Premium_LRS",
+                    "creationData": {
+                        "createOption": "empty"
+                    }
+                }
+            ]
+        },
+        "virtualMachineSize": {
+            "value": "Standard_DS1_v2"
+        },
+        "adminUsername": {
+            "value": "<Enter customer defined username>"
+        }
+    }
+}
