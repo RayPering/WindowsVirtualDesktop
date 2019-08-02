@@ -27,31 +27,6 @@
   .\Deploy-Template.ps1 -SubscriptionId *****  -ResourceGroupName *** -ResourceGroupLocation CentralUS -DeploymentName *** -templateFilePath .\template.json -parametersFilePath .\parameters.json
 #>
 
-<#
-param(
- [Parameter(Mandatory=$True)]
- [string]
- $SubscriptionId,
-
- [Parameter(Mandatory=$True)]
- [string]
- $ResourceGroupName,
-
- [string]
- $ResourceGroupLocation,
-
- [Parameter(Mandatory=$True)]
- [string]
- $DeploymentName,
-
- [string]
- $templateFilePath = "template.json",
-
- [string]
- $parametersFilePath = "parameters.json"
-)
-#>
-
 Function Deploy {
 
     #Create or check for existing resource group
