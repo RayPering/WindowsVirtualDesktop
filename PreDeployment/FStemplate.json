@@ -39,7 +39,7 @@
             "type": "string"
         },
         "adminPassword": {
-            "type": "secureString"
+            "type": "securestring"
         }
     },
     "variables": {
@@ -114,7 +114,7 @@
                 },
                 "storageProfile": {
                     "osDisk": {
-                        "createOption": "fromImage",
+                        "createOption": "FromImage",
                         "managedDisk": {
                             "storageAccountType": "[parameters('osDiskType')]"
                         }
