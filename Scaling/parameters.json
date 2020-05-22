@@ -15,7 +15,12 @@
             "value": "WVD2-Desktops"
         },
         "hostpoolToken": {
-            "value": null
+            "reference": {
+                "keyVault": {
+                    "id": "/subscriptions/0b002d7a-7032-49bd-8de6-b74909a4f8c9/resourceGroups/RG-MPN-WVD-2/providers/Microsoft.KeyVault/vaults/PeringCloudWVD"
+                },
+                "secretName": "WVD2-DesktopRegistration"
+            }
         },
         "hostpoolResourceGroup": {
             "value": ""
@@ -53,7 +58,7 @@
             "value": "Standard_D2s_v3"
         },
         "vmInitialNumber": {
-            "value": 4
+            "value": ReplaceIntNumber
         },
         "vmNumberOfInstances": {
             "value": 1
