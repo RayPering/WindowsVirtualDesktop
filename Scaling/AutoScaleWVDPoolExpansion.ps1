@@ -4,7 +4,7 @@
     on the amount of users sessions
 .DESCRIPTION
     This powershell script does the following:
-        Automatically start and stop session hosts in the WVD environment based on the number of users logged in
+        Automatically start, stop and deploy session hosts in the WVD environment based on the number of users logged in
         Determines the number of servers that are required to be running to meet the specifications outlined
             (number is divided by the definition of maximum session set as defined in the depth-first load balancing settings for the pool) 
         Session hosts are scaled up or down based on that metric
@@ -17,8 +17,10 @@
         An Azure Logic App configured to manipulate the runbook via the webhook
         WVD Host Pool must be configured for Depth First load balancing
         The WVD Service Principal for the Automation Account must be a "Contributor" role for the WVD Resource Groups
+        A template and parmater json file saved in blob storage
         Azure Automation Account runbook needs the following added PowerShell modules:
-            Az.account, Az.compute, and Az.DesktopVirtualization
+            Az.account, Az.compute, Az.Storage and Az.DesktopVirtualization
+        
 .LOGIC_APP_EXAMPLE
     {
         "definition": { 
