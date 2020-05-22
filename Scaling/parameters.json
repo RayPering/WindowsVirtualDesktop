@@ -145,10 +145,10 @@
             "value": "2019-12-10-preview"
         },
         "ouPath": {
-            "value": ""
+            "value": "OU=WVD,DC=PeringCloud,DC=Co,DC=Uk"
         },
         "domain": {
-            "value": ""
+            "value": "peringcloud.co.uk"
         }
     }
 }
