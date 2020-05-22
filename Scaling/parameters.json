@@ -1,0 +1,149 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "nestedTemplatesLocation": {
+            "value": "https://catalogartifact.azureedge.net/publicartifacts/Microsoft.Hostpool-ARM-1.0.12-preview/"
+        },
+        "artifactsLocation": {
+            "value": "https://wvdportalstorageblob.blob.core.windows.net/galleryartifacts/Configuration.zip"
+        },
+        "subscription": {
+            "value": "0b002d7a-7032-49bd-8de6-b74909a4f8c9"
+        },
+        "hostpoolName": {
+            "value": "WVD2-Desktops"
+        },
+        "hostpoolToken": {
+            "value": null
+        },
+        "hostpoolResourceGroup": {
+            "value": ""
+        },
+        "hostpoolLocation": {
+            "value": ""
+        },
+        "hostpoolProperties": {
+            "value": {}
+        },
+        "vmTemplate": {
+            "value": ""
+        },
+        "administratorAccountUsername": {
+            "value": "ray@peringcloud.co.uk"
+        },
+        "administratorAccountPassword": {
+            "reference": {
+                "keyVault": {
+                    "id": "/subscriptions/0b002d7a-7032-49bd-8de6-b74909a4f8c9/resourceGroups/RG-MPN-WVD-2/providers/Microsoft.KeyVault/vaults/PeringCloudWVD"
+                },
+                "secretName": "DomainJoin"
+            }
+        },
+        "createAvailabilitySet": {
+            "value": true
+        },
+        "vmResourceGroup": {
+            "value": "RG-MPN-WVD-2"
+        },
+        "vmLocation": {
+            "value": "uksouth"
+        },
+        "vmSize": {
+            "value": "Standard_D2s_v3"
+        },
+        "vmInitialNumber": {
+            "value": 4
+        },
+        "vmNumberOfInstances": {
+            "value": 1
+        },
+        "vmNamePrefix": {
+            "value": "WVD2-DT"
+        },
+        "vmImageType": {
+            "value": "Gallery"
+        },
+        "vmGalleryImageOffer": {
+            "value": "Windows-10"
+        },
+        "vmGalleryImagePublisher": {
+            "value": "MicrosoftWindowsDesktop"
+        },
+        "vmGalleryImageSKU": {
+            "value": "19h1-evd"
+        },
+        "vmImageVhdUri": {
+            "value": ""
+        },
+        "vmCustomImageSourceId": {
+            "value": ""
+        },
+        "vmDiskType": {
+            "value": "Standard_LRS"
+        },
+        "vmUseManagedDisks": {
+            "value": true
+        },
+        "storageAccountResourceGroupName": {
+            "value": ""
+        },
+        "existingVnetName": {
+            "value": "VNet-PeringCloud-Internal"
+        },
+        "existingSubnetName": {
+            "value": "VirtualMachines"
+        },
+        "virtualNetworkResourceGroupName": {
+            "value": "RG-PeringCloud-Networking"
+        },
+        "usePublicIP": {
+            "value": false
+        },
+        "publicIpAddressSku": {
+            "value": "Basic"
+        },
+        "publicIpAddressType": {
+            "value": "Dynamic"
+        },
+        "createNetworkSecurityGroup": {
+            "value": false
+        },
+        "networkSecurityGroupId": {
+            "value": "/subscriptions/0b002d7a-7032-49bd-8de6-b74909a4f8c9/resourceGroups/RG-PeringCloud-Networking/providers/Microsoft.Network/networkSecurityGroups/NSG-PeringCloud-Internal"
+        },
+        "networkSecurityGroupRules": {
+            "value": []
+        },
+        "availabilitySetTags": {
+            "value": {}
+        },
+        "networkInterfaceTags": {
+            "value": {}
+        },
+        "networkSecurityGroupTags": {
+            "value": {}
+        },
+        "publicIPAddressTags": {
+            "value": {}
+        },
+        "virtualMachineTags": {
+            "value": {}
+        },
+        "imageTags": {
+            "value": {}
+        },
+        "deploymentId": {
+            "value": "ea35ea89-aded-484a-89fb-2c53ca546044"
+        },
+        "apiVersion": {
+            "value": "2019-12-10-preview"
+        },
+        "ouPath": {
+            "value": ""
+        },
+        "domain": {
+            "value": ""
+        }
+    }
+}
