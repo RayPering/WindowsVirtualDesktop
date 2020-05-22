@@ -21,19 +21,19 @@ Function Deploy {
     $ResourceGroup = Get-AzResourceGroup -Name $ResourceGroupName -ErrorAction SilentlyContinue
     if(!$ResourceGroup)
     {
-        Write-Host "Resource group '$ResourceGroupName' does not exist. Resouce group will be created.";
+        Write-Output "Resource group '$ResourceGroupName' does not exist. Resouce group will be created.";
         if(!$ResourceGroupLocation) {
             $ResourceGroupLocation = Read-Host "resourceGroupLocation";
         }
-        Write-Host "Creating resource group '$ResourceGroupName' in location '$ResourceGroupLocation'";
+        Write-Output "Creating resource group '$ResourceGroupName' in location '$ResourceGroupLocation'";
         New-AzResourceGroup -Name $ResourceGroupName -Location $ResourceGroupLocation
     }
     else{
-        Write-Host "Using existing resource group '$ResourceGroupName'";
+        Write-Output "Using existing resource group '$ResourceGroupName'";
     }
 
     # Start the deployment
-    Write-Host "Starting deployment...";
+    Write-Output "Starting deployment...";
     if(Test-Path $ParametersFilePath) {
         New-AzResourceGroupDeployment -ResourceGroupName $ResourceGroupName -Name $DeploymentName -TemplateFile $TemplateFilePath -TemplateParameterFile $ParametersFilePath;
     } else {
@@ -44,8 +44,13 @@ Function Deploy {
 
 #######       Section for Variables       #######
 
-$Template = 'https://peringcloudstorage.file.core.windows.net/resource-templates/template.json'
-$Parameters = 'https://peringcloudstorage.file.core.windows.net/resource-templates/parameters.json'
+$TemplateFilePath = 'https://peringcloudstorage.file.core.windows.net/resource-templates/template.json'
+$ParametersFilePath = 'https://peringcloudstorage.file.core.windows.net/resource-templates/parameters.json'
+$azureSubId = '0b002d7a-7032-49bd-8de6-b74909a4f8c9'
+$aadTenantId = '23e4a13a-5331-4ee7-8b99-3146c19eb951'
+$ResourceGroupName = 'RG-MPN-WVD-2'
+$ResourceGroupLocation = 'UK South'
+$DeploymentName = 'PoolExpansion'
 
 #######       Script Execution       #######
 
