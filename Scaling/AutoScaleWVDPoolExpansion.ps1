@@ -82,6 +82,7 @@
     Author:       Ray Pering
     Version:      1.0.0     Initial Build Donald Harris see here for her information https://github.com/eulogious/AzureRunbooks/blob/master/AutoScaleWVD.ps1
                   2.0.0     Updated to fit the spring release of WVD
+                  2.0.1     Added steps to expand a host pool
 #>
 
     #######       Get data from webhook body    #############
