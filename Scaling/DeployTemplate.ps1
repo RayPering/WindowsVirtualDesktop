@@ -50,15 +50,15 @@ $ResourceGroupName = 'RG-MPN-WVD-2'
 $ResourceGroupLocation = 'UK South'
 $DeploymentName = 'PoolExpansion'
 
-$StorageAccountKey = Get-AzAutomationVariable -Name 'StorageKey'
+$StorageAccountKey = Get-AutomationVariable -Name 'StorageKey'
 $Context = New-AzStorageContext -StorageAccountName 'peringcloudstorage' -StorageAccountKey $StorageAccountKey
 
 # Get Template File
-Get-AzStorageFileContent -ShareName 'resource-templates' -Contenxt $context -Path 'template.json' -Destination 'C:\Temp'
+Get-AzStorageFileContent -ShareName 'resource-templates' -Context $context -Path 'template.json' -Destination 'C:\Temp' -Force
 $TemplateFilePath = Join-path -path 'C:\temp' -ChildPath 'template.json'
 
 # Get Parameter File
-Get-AzStorageFileContent -ShareName 'resource-templates' -Contenxt $context -Path 'parameters.json' -Destination 'C:\Temp'
+Get-AzStorageFileContent -ShareName 'resource-templates' -Context $context -Path 'parameters.json' -Destination 'C:\Temp' -Force
 $ParametersFilePath = Join-path -path 'C:\temp' -ChildPath 'parameters.json'
 
 #######       Script Execution       #######
@@ -76,6 +76,16 @@ catch
     Write-Error ("Error logging in: " + $ErrorMessage)
     Break
 }
+
+## Get highes VM number and increment by 1
+$VMs = (Get-AzVm -ResourceGroupName RG-MPN-WVD-2).Name
+$VMs = ($VMs | measure -Maximum).Maximum
+$VMs = $VMs.split('-')[2]
+$VMs = $VMs.ToInt32($null)
+$VMs++
+
+## Update starting VM number in parameter file
+(Get-Content -Path $ParametersFilePath) -replace 'ReplaceIntNumber', $VMs | Set-Content -Path $ParametersFilePath
 
 ## Run Deployment
 
