@@ -100,6 +100,7 @@
     }
 
 #######       Translate Webhook Data into Variables       #######
+
     $serverStartThreshold = $Input.serverStartThreshold
     $usePeak = $Input.usePeak
     $peakServerStartThreshold = $Input.peakServerStartThreshold
@@ -114,44 +115,46 @@
     $callbackurl = $Input.callbackUrl
 
 
-   #######       Section for Functions       ####### 
+#######       Section for Functions       ####### 
 
-       # Convert UTC to Local Time
+  # Convert UTC to Local Time
 
-       function Convert-UTCtoLocalTime
-       {
-           param(
-               $TimeDifferenceInHours
-       )
+    function Convert-UTCtoLocalTime
+    {
+        param(
+            $TimeDifferenceInHours
+    )
    
-           $UniversalTime = (Get-Date).ToUniversalTime()
-           $TimeDifferenceMinutes = 0
-           if ($TimeDifferenceInHours -match ":") {
-               $TimeDifferenceHours = $TimeDifferenceInHours.Split(":")[0]
-               $TimeDifferenceMinutes = $TimeDifferenceInHours.Split(":")[1]
-           }
-           else {
-               $TimeDifferenceHours = $TimeDifferenceInHours
-           }
-           #Azure is using UTC time, justify it to the local time
-           $ConvertedTime = $UniversalTime.AddHours($TimeDifferenceHours).AddMinutes($TimeDifferenceMinutes)
-           return $ConvertedTime
-       }
+        $UniversalTime = (Get-Date).ToUniversalTime()
+        $TimeDifferenceMinutes = 0
+        if ($TimeDifferenceInHours -match ":") {
+            $TimeDifferenceHours = $TimeDifferenceInHours.Split(":")[0]
+            $TimeDifferenceMinutes = $TimeDifferenceInHours.Split(":")[1]
+        }
+        else {
+            $TimeDifferenceHours = $TimeDifferenceInHours
+        }
+        #Azure is using UTC time, justify it to the local time
+        $ConvertedTime = $UniversalTime.AddHours($TimeDifferenceHours).AddMinutes($TimeDifferenceMinutes)
+        return $ConvertedTime
+    }
 
-      function Start-SessionHost 
+  # Start Session Hosts
+
+    function Start-SessionHost 
     {
         param   
         (
-           $SessionHosts,
-           $sessionsToStart
-       )
-        
-       # Number of off hosts accepting connections
+            $SessionHosts,
+            $sessionsToStart
+        )
+            
+        # Number of off hosts accepting connections
         $offSessionHosts = $sessionHosts | Where-Object { $_.status -eq "Unavailable" }
         $offSessionHostsCount = $offSessionHosts.count
         Write-Output "Off Session Hosts $offSessionHostsCount"
         Write-Output ($offSessionHost | Out-String)
-       
+        
         if ($offSessionHostsCount -eq 0 ) 
         {   
             Write-Error $ErrorMessage "Start threshold met, but the status variable is still not finding an available host to start"
@@ -186,49 +189,53 @@
         }
     }
 
-function Stop-SessionHost 
-{
-   param 
-   (
-       $SessionHosts,
-       $sessionsToStop
-   )
+  # Stop Session Hosts
+
+    function Stop-SessionHost 
+    {
+        param 
+        (
+            $SessionHosts,
+            $sessionsToStop
+        )
+
         ##  Get computers running with no users
         $emptyHosts = $sessionHosts | Where-Object { $_.Session -eq 0 -and $_.Status -eq 'Available' }
         $emptyHostsCount = $emptyHosts.count 
         ##  Count hosts without users and shut down all unused hosts until desire threshold is met
         Write-Output "Evaluating servers to shut down"
-   if ($emptyHostsCount -eq 0) 
-        {Write-Error "Error: No hosts available to shut down"}
-   else
-   {
-        if ($sessionsToStop -gt $emptyHostsCount)
-        {$sessionsToStop = $emptyHostsCount}
-        $counter = 0
-        Write-Output "Conditions met to stop a host"
-        while ($counter -lt $sessionsToStop) 
-            {
-            $shutServerName = ($emptyHosts | Select-Object -Index $counter).Name
-            Write-Output "Shutting down server $shutServerName"
-            try 
+            
+        if ($emptyHostsCount -eq 0) 
+            {Write-Error "Error: No hosts available to shut down"}
+        else
+        {
+            if ($sessionsToStop -gt $emptyHostsCount)
+            {$sessionsToStop = $emptyHostsCount}
+            $counter = 0
+            Write-Output "Conditions met to stop a host"
+            while ($counter -lt $sessionsToStop) 
                 {
-                # Stop the VM
-                $creds = Get-AutomationPSCredential -Name 'WVD-Automation'
-                Connect-AzAccount -ErrorAction Stop -ServicePrincipal -SubscriptionId $azureSubId -TenantId $aadTenantId -Credential $creds
-                $vmName = $shutServerName.Split('.')[0]
-                $vmName = $vmName.Split('/')[1]
-                Stop-AzVM -ErrorAction Stop -ResourceGroupName $sessionHostRg -Name $vmName -Force
-                }
-            catch 
+                $shutServerName = ($emptyHosts | Select-Object -Index $counter).Name
+                Write-Output "Shutting down server $shutServerName"
+                try 
                 {
-                $ErrorMessage = $_.Exception.Message
-                Write-Error ("Error stopping the VM: " + $ErrorMessage)
-                Break  
+                    # Stop the VM
+                    $creds = Get-AutomationPSCredential -Name 'WVD-Automation'
+                    Connect-AzAccount -ErrorAction Stop -ServicePrincipal -SubscriptionId $azureSubId -TenantId $aadTenantId -Credential $creds
+                    $vmName = $shutServerName.Split('.')[0]
+                    $vmName = $vmName.Split('/')[1]
+                    Stop-AzVM -ErrorAction Stop -ResourceGroupName $sessionHostRg -Name $vmName -Force
                 }
-        $counter++
+                catch 
+                {
+                    $ErrorMessage = $_.Exception.Message
+                    Write-Error ("Error stopping the VM: " + $ErrorMessage)
+                    Break  
+                }
+            $counter++
             }   
+        }
     }
-}
 
 #######       Script Execution       #######
 
@@ -269,21 +276,24 @@ if ($hostPool.LoadBalancerType -ne "DepthFirst")
 }
 
 ## Check if peak time and adjust threshold
-    $date = ((get-date).ToUniversalTime()).AddHours($utcOffset)
-    $dateTime = ($date.hour).ToString() + ':' + ($date.minute).ToString() + ':' + ($date.second).ToString()
-    Write-Output "Date and Time"
+     # Converting date time from UTC to Local
+	$dateTime = Convert-UTCtoLocalTime -TimeDifferenceInHours $utcoffset
+    	$BeginPeakDateTime = [datetime]::Parse($dateTime.ToShortDateString() + ' ' + $startPeakTime)
+	$EndPeakDateTime = [datetime]::Parse($dateTime.ToShortDateString() + ' ' + $EndPeakTime)
+    Write-Output "Current Day, Date, and Time:"
     Write-Output $dateTime
     $dateDay = (((get-date).ToUniversalTime()).AddHours($utcOffset)).dayofweek
-    Write-Output $dateDay
-if ($dateTime -gt $startPeakTime -and $dateTime -lt $endPeakTime -and $dateDay -in $peakDay -and $usePeak -eq "yes") 
-    { Write-Output "Adjusting threshold for peak hours" 
+    #Write-Output $dateDay
+if ($dateTime -gt $BeginPeakDateTime -and $dateTime -lt $EndPeakDateTime -and $dateDay -in $peakDay -and $usePeak -eq "yes") 
+    { Write-Output "Threshold set for peak hours" 
     $serverStartThreshold = $peakServerStartThreshold }
+else 
+    { Write-Output "Thershold set for outside of peak hours" }
 
 ## Get the Max Session Limit on the host pool
 ## This is the total number of sessions per session host
     $maxSession = $hostPool.MaxSessionLimit
-    Write-Output "MaxSession:"
-    Write-Output $maxSession
+    Write-Output "MaxSession: $maxSession"
 
 # Find the total number of session hosts
 # Exclude servers that do not allow new connections
@@ -324,14 +334,17 @@ if ($runningSessionHostsCount -lt $sessionHostTarget)
    Write-Output "Running session host count $runningSessionHosts is less than session host target count $sessionHostTarget, starting sessions"
    $sessionsToStart = ($sessionHostTarget - $runningSessionHostsCount)
    Start-SessionHost -Sessionhosts $sessionHosts -sessionsToStart $sessionsToStart
+   Invoke-RestMethod -Method Post -Uri $callbackurl
 }
 elseif ($runningSessionHostsCount -gt $sessionHostTarget) 
 {
    Write-Output "Running session hosts count $runningSessionHostsCount is greater than session host target count $sessionHostTarget, stopping sessions"
    $sessionsToStop = ($runningSessionHostsCount - $sessionHostTarget)
    Stop-SessionHost -SessionHosts $sessionHosts -sessionsToStop $sessionsToStop
+   Invoke-RestMethod -Method Post -Uri $callbackurl
 }
 else 
 {
- Write-Output "Running session host count $runningSessionHostsCount matches session host target count $sessionHostTarget, doing nothing"   
+ Write-Output "Running session host count $runningSessionHostsCount matches session host target count $sessionHostTarget, doing nothing"
+ Invoke-RestMethod -Method Post -Uri $callbackurl    
 }
