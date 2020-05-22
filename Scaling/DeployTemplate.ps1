@@ -44,13 +44,22 @@ Function Deploy {
 
 #######       Section for Variables       #######
 
-$TemplateFilePath = 'https://peringcloudstorage.file.core.windows.net/resource-templates/template.json'
-$ParametersFilePath = 'https://peringcloudstorage.file.core.windows.net/resource-templates/parameters.json'
 $azureSubId = '0b002d7a-7032-49bd-8de6-b74909a4f8c9'
 $aadTenantId = '23e4a13a-5331-4ee7-8b99-3146c19eb951'
 $ResourceGroupName = 'RG-MPN-WVD-2'
 $ResourceGroupLocation = 'UK South'
 $DeploymentName = 'PoolExpansion'
+
+$StorageAccountKey = Get-AzAutomationVariable -Name 'StorageKey'
+$Context = New-AzStorageContext -StorageAccountName 'peringcloudstorage' -StorageAccountKey $StorageAccountKey
+
+# Get Template File
+Get-AzStorageFileContent -ShareName 'resource-templates' -Contenxt $context -Path 'template.json' -Destination 'C:\Temp'
+$TemplateFilePath = Join-path -path 'C:\temp' -ChildPath 'template.json'
+
+# Get Parameter File
+Get-AzStorageFileContent -ShareName 'resource-templates' -Contenxt $context -Path 'parameters.json' -Destination 'C:\Temp'
+$ParametersFilePath = Join-path -path 'C:\temp' -ChildPath 'parameters.json'
 
 #######       Script Execution       #######
 
