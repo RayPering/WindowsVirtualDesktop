@@ -272,9 +272,11 @@
     $VMs = $VMs.split('-')[2]
     $VMs = $VMs.ToInt32($null)
     $VMs++
+    Write-Output "Setting starting VM increment number to $VMs"
 
     # Update starting VM number in parameter file
     (Get-Content -Path $parametersFilePath) -replace 'ReplaceIntNumber', $VMs | Set-Content -Path $parametersFilePath
+    Write-Output "Updated parameter file"
 
     # Start the deployment
     Write-Output "Starting deployment...";
@@ -282,8 +284,7 @@
             Write-Output "Parameter file found. Continuing"
             Try
             {
-                New-AzResourceGroupDeployment -ResourceGroupName $sessionHostRg -Name $deploymentName -TemplateFile $templateFilePath`
-                -TemplateParameterFile $parametersFilePath;
+                New-AzResourceGroupDeployment -ResourceGroupName $sessionHostRg -Name $deploymentName -TemplateFile $templateFilePath -TemplateParameterFile $parametersFilePath;
             }
             Catch
             {
