@@ -343,13 +343,12 @@ if ($hostPool.LoadBalancerType -ne "DepthFirst")
 	$dateTime = Convert-UTCtoLocalTime -TimeDifferenceInHours $utcoffset
     	$BeginPeakDateTime = [datetime]::Parse($dateTime.ToShortDateString() + ' ' + $startPeakTime)
 	$EndPeakDateTime = [datetime]::Parse($dateTime.ToShortDateString() + ' ' + $EndPeakTime)
-    Write-Output "Current Day, Date, and Time:"
-    Write-Output $dateTime
+    Write-Output "Current Day, Date, and Time: $dateTime"
     $dateDay = (((get-date).ToUniversalTime()).AddHours($utcOffset)).dayofweek
     #Write-Output $dateDay
 if ($dateTime -gt $BeginPeakDateTime -and $dateTime -lt $EndPeakDateTime -and $dateDay -in $peakDay -and $usePeak -eq "yes") 
-    { Write-Output "Threshold set for peak hours" 
-    $serverStartThreshold = $peakServerStartThreshold }
+    { Write-Output "Threshold set for peak hours: $serverStartThreshold = $peakServerStartThreshold" }
+    
 else 
     { Write-Output "Thershold set for outside of peak hours" }
 
