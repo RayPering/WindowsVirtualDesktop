@@ -376,7 +376,7 @@ catch
     $currentSessions = 0
 foreach ($sessionHost in $sessionHosts) 
 {
-   $count = $sessionHost.sessions
+   $count = $sessionHost.session
    $currentSessions += $count
 }
     Write-Output "CurrentSessions"
