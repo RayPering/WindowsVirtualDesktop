@@ -379,8 +379,7 @@ foreach ($sessionHost in $sessionHosts)
    $count = $sessionHost.session
    $currentSessions += $count
 }
-    Write-Output "CurrentSessions"
-    Write-Output $currentSessions
+    Write-Output "CurrentSessions: $currentSessions"
 
 ## Number of running and available session hosts
 ## Host that are shut down are excluded
