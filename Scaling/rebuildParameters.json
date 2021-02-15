@@ -29,7 +29,9 @@
             "value": ""
         },
         "hostpoolProperties": {
-            "value": {}
+            "value": {
+                "vmTemplate": "{\"domain\":\"peringcloud.co.uk\",\"galleryImageOffer\":null,\"galleryImagePublisher\":null,\"galleryImageSKU\":null,\"imageType\":\"CustomImage\",\"imageUri\":null,\"customImageId\":\"/subscriptions/0b002d7a-7032-49bd-8de6-b74909a4f8c9/resourceGroups/RG-MPN-WVD-Templates/providers/Microsoft.Compute/images/WVD-Template-image-1\",\"namePrefix\":\"WVD2-DT\",\"osDiskType\":\"StandardSSD_LRS\",\"useManagedDisks\":true,\"vmSize\":{\"id\":\"Standard_D2s_v3\",\"cores\":2,\"ram\":8}}"
+            }
         },
         "vmTemplate": {
             "value": ""
@@ -58,31 +60,31 @@
             "value": "Standard_D2s_v3"
         },
         "vmInitialNumber": {
-            "value": ReplaceIntNumber
+            "value": 0
         },
         "vmNumberOfInstances": {
-            "value": 1
+            "value": 2
         },
         "vmNamePrefix": {
             "value": "WVD2-DT"
         },
         "vmImageType": {
-            "value": "Gallery"
+            "value": "CustomImage"
         },
         "vmGalleryImageOffer": {
-            "value": "Windows-10"
+            "value": ""
         },
         "vmGalleryImagePublisher": {
-            "value": "MicrosoftWindowsDesktop"
+            "value": ""
         },
         "vmGalleryImageSKU": {
-            "value": "19h1-evd"
+            "value": ""
         },
         "vmImageVhdUri": {
             "value": ""
         },
         "vmCustomImageSourceId": {
-            "value": ""
+            "value": ReplaceSourceID
         },
         "vmDiskType": {
             "value": "Standard_LRS"

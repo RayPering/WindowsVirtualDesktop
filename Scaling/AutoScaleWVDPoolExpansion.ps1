@@ -165,7 +165,7 @@
         # Number of off hosts accepting connections
         $offSessionHosts = $sessionHosts | Where-Object { $_.status -eq "Unavailable" }
         $offSessionHostsCount = $offSessionHosts.count
-        Write-Output "Off Session Hosts $offSessionHostsCount"
+        Write-Output "Off Session Hosts: $offSessionHostsCount"
         Write-Output ($offSessionHost | Out-String)
         
         if ($offSessionHostsCount -eq 0 ) 
@@ -182,7 +182,7 @@
             while ($counter -lt $sessionsToStart)
             {
                 $startServerName = ($offSessionHosts | Select-Object -Index $counter).Name
-                Write-Output "Server that will be started $startServerName"
+                Write-Output "Server that will be started: $startServerName"
                 try
                 {  
                     # Start the VM
@@ -230,7 +230,7 @@
             while ($counter -lt $sessionsToStop) 
                 {
                 $shutServerName = ($emptyHosts | Select-Object -Index $counter).Name
-                Write-Output "Shutting down server $shutServerName"
+                Write-Output "Shutting down server: $shutServerName"
                 try 
                 {
                     # Stop the VM
@@ -321,8 +321,8 @@ catch
 try 
 {
     $hostpool = Get-AzWvdHostPool -ErrorVariable Stop -Name $hostPoolName -SubscriptionId $azureSubId -ResourceGroupName $sessionHostRg
-    Write-Output "HostPool:"
-    Write-Output $hostPool.Name
+    $hpName = $hostPool.name
+    Write-Output "HostPool: $hpName"
 }
 catch 
 {
@@ -347,8 +347,7 @@ if ($hostPool.LoadBalancerType -ne "DepthFirst")
     $dateDay = (((get-date).ToUniversalTime()).AddHours($utcOffset)).dayofweek
     #Write-Output $dateDay
 if ($dateTime -gt $BeginPeakDateTime -and $dateTime -lt $EndPeakDateTime -and $dateDay -in $peakDay -and $usePeak -eq "yes") 
-    { Write-Output "Threshold set for peak hours: $serverStartThreshold = $peakServerStartThreshold" }
-    
+    { Write-Output "Threshold set for peak hours: " $serverStartThreshold = $peakServerStartThreshold} 
 else 
     { Write-Output "Thershold set for outside of peak hours" }
 
@@ -384,7 +383,7 @@ foreach ($sessionHost in $sessionHosts)
 ## Host that are shut down are excluded
     $runningSessionHosts = $sessionHosts | Where-Object { $_.Status -eq "Available" }
     $runningSessionHostsCount = $runningSessionHosts.count
-    Write-Output "Running Session Host $runningSessionHostsCount"
+    Write-Output "Running Session Hosts: $runningSessionHostsCount"
     Write-Output ($runningSessionHosts | Out-string)
 
 # Target number of servers required running based on active sessions, Threshold and maximum sessions per host

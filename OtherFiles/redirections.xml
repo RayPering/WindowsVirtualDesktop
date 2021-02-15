@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<FrxProfileFolderRedirection ExcludeCommonFolders="0">
+    <Excludes>
+        <Exclude Copy="0">%appdata%\Microsoft\Teams\Service Worker\CacheStorage</exclude>
+        <Exclude Copy="0">%appdata%\Microsoft\Teams\meeting-addin\Cache</exclude>
+        <Exclude Copy="0">%appdata%\Microsoft\Teams\media-stack</exclude>
+    </Excludes>
+    <Includes />
+</FrxProfileFolderRedirection>
