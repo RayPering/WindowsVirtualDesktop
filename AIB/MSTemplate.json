@@ -4,7 +4,7 @@
     "location": "<region>",
     "dependsOn": [],
     "tags": {
-        "imagebuilderTemplate": "windows2019",
+        "imagebuilderTemplate": "windows10",
         "userIdentity": "enabled"
             },
         "identity": {
@@ -26,7 +26,7 @@
         
         "source": {
             "type": "PlatformImage",
-                "publisher": "MicrosoftWindowsServer",
+                "publisher": "MicrosoftWindows",
                 "offer": "Windows-10",
                 "sku": "20h2-evd",
                 "version": "latest"
