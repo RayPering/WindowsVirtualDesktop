@@ -53,7 +53,14 @@
                     "version": "latest"
             },
             "customize": [
-                        
+                    
+                    {
+                        "type": "PowerShell",
+                        "name": "installFsLogix",
+                        "runElevated": true,
+                        "runAsSystem": true,
+                        "scriptUri": "https://raw.githubusercontent.com/RayPering/WindowsVirtualDesktop/master/AIB/FsLogix.ps1"
+                    },
                     {
                         "type": "WindowsUpdate",
                         "searchCriteria": "IsInstalled=0",
