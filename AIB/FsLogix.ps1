@@ -10,7 +10,7 @@ Installs x64 FsLogix client
 
 #>
 
-write-host 'AIB Customization: Downloading FsLogix'
+write-host 'AIB Customisation: Downloading FsLogix'
 
 # Create FsLogix folder
 New-Item -Path C:\\ -Name fslogix -ItemType Directory -ErrorAction SilentlyContinue
@@ -26,9 +26,9 @@ $installerFile="fslogix_download.zip"
 # Download installer and expand archive
 Invoke-WebRequest $fsLogixURL -OutFile $LocalPath\$installerFile
 Expand-Archive $LocalPath\$installerFile -DestinationPath $LocalPath
-write-host 'AIB Customization: Download Fslogix installer finished'
+write-host 'AIB Customisation: Download Fslogix installer finished'
 
-write-host 'AIB Customization: Start Fslogix installer'
+write-host 'AIB Customisation: Start Fslogix installer'
 
 # Install client
 Start-Process `
@@ -37,4 +37,4 @@ Start-Process `
     -Wait `
     -Passthru 
 
-write-host 'AIB Customization: Finished Fslogix installer' 
+write-host 'AIB Customisation: Finished Fslogix installer' 
