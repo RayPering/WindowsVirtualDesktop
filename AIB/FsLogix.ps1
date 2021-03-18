@@ -24,7 +24,7 @@ Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Force -Verbose
 .\\FSLogixSetup.ps1 -ProfilePath \\wvdSMB\wvd -Verbose
 #>
 Start-Process `
-    -FilePath ".\FSLogix\x64\Release\FSLogixAppsSetup.exe" `
+    -FilePath ".\x64\Release\FSLogixAppsSetup.exe" `
     -ArgumentList "/install /quiet" `
     -Wait `
     -Passthru 
