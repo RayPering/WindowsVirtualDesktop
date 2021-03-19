@@ -1,7 +1,7 @@
 <#
 .Synopsis
 Created by: Ray Pering
-Downloads and installs the lates FsLogix client
+Downloads and installs the latest FsLogix client
 
 .Description
 Downloads installer to c:\fslogix
