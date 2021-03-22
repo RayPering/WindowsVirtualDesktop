@@ -1,7 +1,7 @@
 
 
 # Set variables
-$imageResourceGroup = rg-azureImageBuilder
+$imageResourceGroup = "rg-azureImageBuilder"
 $identityName = "aibIdentity1616061257"
 $location = "EastUS"
 $DistLocation = "UKSouth"
