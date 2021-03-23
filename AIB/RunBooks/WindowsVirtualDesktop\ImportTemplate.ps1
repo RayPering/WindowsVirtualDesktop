@@ -10,7 +10,7 @@ $aadTenantId = "23e4a13a-5331-4ee7-8b99-3146c19eb951"
 $imageTemplateName = "WVDImage"
 $runOutputName = "sigOutput"
 
-$templateUrl = "https://raw.githubusercontent.com/RayPering/WindowsVirtualDesktop/Dev/AIB/NewBuildSimple.json"
+$templateUrl = "https://raw.githubusercontent.com/RayPering/WindowsVirtualDesktop/master/AIB/NewBuildSimple.json"
 $templateFilePath = "NewBuildSimple.json"
 
 ## Log into Azure WVD

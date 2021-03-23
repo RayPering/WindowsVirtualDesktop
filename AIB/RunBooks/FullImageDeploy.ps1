@@ -13,7 +13,7 @@ $imageDefName = "WVD"
 $sigGalleryName = "PeringCloudSIG"
 $runOutputName = "sigOutput"
 
-$templateUrl = "https://raw.githubusercontent.com/RayPering/WindowsVirtualDesktop/Dev/AIB/NewBuildSimple.json"
+$templateUrl = "https://raw.githubusercontent.com/RayPering/WindowsVirtualDesktop/master/AIB/NewBuildSimple.json"
 $templateFilePath = "NewBuildSimple.json"
 
 ## Log into Azure WVD
