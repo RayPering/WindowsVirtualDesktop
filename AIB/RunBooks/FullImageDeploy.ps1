@@ -31,7 +31,6 @@ catch
 
 # Get managed identity
 $identityNameResourceId = $(Get-AzUserAssignedIdentity -ResourceGroupName $aibResourceGroup -Name $identityName).Id
-$identityNamePrincipalId = $(Get-AzUserAssignedIdentity -ResourceGroupName $aibResourceGroup -Name $identityName).PrincipalId
 
 # Download template
 Invoke-WebRequest -Uri $templateUrl -OutFile $templateFilePath -UseBasicParsing
