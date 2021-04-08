@@ -22,7 +22,19 @@
             "apiVersion": "2019-03-01",
             "location": "[parameters('location')]",
             "properties": {},
-            "tags": "[parameters('tags')]"
+            "tags": {
+                "Application": "WVD",
+                "CustomerRef": "SDS",
+                "EnsonoSupportLevel": "Fully-Managed",
+                "Environment": "Production",
+                "Role": "WVD Shared Image Gallery",
+                "Charge to SDS": "True",
+                "Charge to HIE": "False",
+                "Charge to SEN": "False",
+                "Charge to SSE": "False",
+                "BudgetCode": "BEG60102",
+                "Organisation": "SDS"
+            }
         }
     ]
 }
