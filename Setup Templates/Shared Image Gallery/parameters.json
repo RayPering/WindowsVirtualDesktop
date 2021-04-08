@@ -1,0 +1,27 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "resourceName": {
+            "value": "SDSImages"
+        },
+        "location": {
+            "value": "ukwest"
+        },
+        "tags": {
+            "value": {
+                "Application": "WVD",
+                "CustomerRef": "SDS",
+                "EnsonoSupportLevel": "Fully-Managed",
+                "Environment": "Production",
+                "Role": "WVD Application Hostpool",
+                "Charge to SDS": "True",
+                "Charge to HIE": "False",
+                "Charge to SEN": "False",
+                "Charge to SSE": "False",
+                "BudgetCode": "BEG60102",
+                "Organisation": "SDS"
+            }
+        }
+    }
+}
