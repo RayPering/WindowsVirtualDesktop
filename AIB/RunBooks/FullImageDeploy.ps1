@@ -1,20 +1,92 @@
+<#
+.SYNOPSIS
+    Automate the build and distribution of WVD images
+.DESCRIPTION
+    This runbook does the following:
+        Inports an image template from a GitHub repo
+        Triggers the build of the image template and distributes the final image
 
+.LOGIC_APP_EXAMPLE
+    {
+        "definition": { 
+            "$schema": "https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#",
+            "actions": {
+                "HTTP_Webhook": {
+                    "inputs": {
+                        "subscribe": {
+                            "body": {
+                                "aibResourceGroup": "<AIBResourceGroup>",
+                                "imageResourceGroup": "<ImageDistributionResourceGroup>",
+                                "identityName": "<AIBIdentity>",
+                                "location": "<BuildRegion>",
+                                "DistLocation": "<ImageDistributionRegion>",
+                                "subscriptionID": "<SubscriptionID>",
+                                "aadTenantId": "<AADTenantID>",
+                                "imageTemplateName": "<ImageTemplateName>",
+                                "imageDefName": "<SIGImageDefinition>",
+                                "sigGalleryName": "<SIGName>",
+                                "runOutputName": "sigOutput",
+                                "templateUrl": "<TemplateURL>",
+                                "templateFilePath": "<TemplateName>"
+                            },
+                            "method": "POST",
+                            "uri": "<RunbookWebhookUrl>"
+                        },
+                        "unsubscribe": {}
+                    },
+                    "runAfter": {},
+                    "type": "HttpWebhook"
+                }
+            },
+            "contentVersion": "1.0.0.0",
+            "outputs": {},
+            "parameters": {},
+            "triggers": {}
+        },
+        "parameters": {}
+    }
+.NOTES 
+    Author:       Ray Pering
+    Version:      1.0.0     Initial Build
+#>
 
-# Set variables
-$aibResourceGroup = "rg-azureImageBuilder"
-$imageResourceGroup = "rg-mpn-wvd-templates"
-$identityName = "aibIdentity1616061257"
-$location = "EastUS"
-$DistLocation = "UKSouth"
-$subscriptionID = "0b002d7a-7032-49bd-8de6-b74909a4f8c9"
-$aadTenantId = "23e4a13a-5331-4ee7-8b99-3146c19eb951"
-$imageTemplateName = "WVDImage"
-$imageDefName = "WVD"
-$sigGalleryName = "PeringCloudSIG"
-$runOutputName = "sigOutput"
+# Get data from webhook body
+param(
+    [Parameter(mandatory = $false)]
+    [object]$WebHookData
+)
+# If runbook was called from Webhook, WebhookData will not be null.
+if ($WebHookData) {
 
-$templateUrl = "https://raw.githubusercontent.com/RayPering/WindowsVirtualDesktop/master/AIB/NewBuildSimple.json"
-$templateFilePath = "NewBuildSimple.json"
+    # Collect properties of WebhookData
+    $WebhookName = $WebHookData.WebhookName
+    $WebhookHeaders = $WebHookData.RequestHeader
+    $WebhookBody = $WebHookData.RequestBody
+
+    # Collect individual headers. Input converted from JSON.
+    $From = $WebhookHeaders.From
+    $Input = (ConvertFrom-Json -InputObject $WebhookBody)
+}
+else
+{
+    Write-Error -Message 'Runbook was not started from Webhook' -ErrorAction stop
+}
+
+# Convert webhook data to variables
+$aibResourceGroup = $Input.aibResourceGroup
+$imageResourceGroup = $Input.imageResourceGroup
+$identityName = $Input.identityName
+$location = $Input.location
+$DistLocation = $Input.DistLocation
+$subscriptionID = $Input.subscriptionID
+$aadTenantId = $Input.aadTenantId
+$imageTemplateName = $Input.imageTemplateName
+$imageDefName = $Input.imageDefName
+$sigGalleryName = $Input.sigGalleryName
+$runOutputName = $Input.runOutputName
+
+$templateUrl = $Input.templateUrl
+$templateFilePath = $Input.templateFilePath
 
 ## Log into Azure WVD
 try 
