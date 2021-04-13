@@ -10,11 +10,16 @@
     {
         "definition": { 
             "$schema": "https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#",
-            "actions": {
+            "actions": {},
+            "contentVersion": "1.0.0.0",
+            "outputs": {},
+            "parameters": {},
+            "triggers": {
                 "HTTP_Webhook": {
                     "inputs": {
                         "subscribe": {
                             "body": {
+                                "callbackUrl": "@{listCallbackURL()}",
                                 "aibResourceGroup": "<AIBResourceGroup>",
                                 "imageResourceGroup": "<ImageDistributionResourceGroup>",
                                 "identityName": "<AIBIdentity>",
@@ -34,14 +39,9 @@
                         },
                         "unsubscribe": {}
                     },
-                    "runAfter": {},
                     "type": "HttpWebhook"
                 }
-            },
-            "contentVersion": "1.0.0.0",
-            "outputs": {},
-            "parameters": {},
-            "triggers": {}
+            }
         },
         "parameters": {}
     }
@@ -73,6 +73,7 @@ else
 }
 
 # Convert webhook data to variables
+$callbackUrl = $Input.callbackUrl
 $aibResourceGroup = $Input.aibResourceGroup
 $imageResourceGroup = $Input.imageResourceGroup
 $identityName = $Input.identityName
@@ -139,6 +140,7 @@ while (!(Get-AzImageBuilderTemplate -ImageTemplateName $imageTemplateName -Resou
 # Deploy template
 try {
     Start-AzImageBuilderTemplate -ResourceGroupName $aibResourceGroup -Name $imageTemplateName -NoWait
+    Invoke-RestMethod -Method Post -Uri $callbackurl
 }
 catch {
     $ErrorMessage = $_.Exception.message
