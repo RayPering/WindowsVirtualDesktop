@@ -71,7 +71,7 @@
                         "name": "Install Teams",
                         "runElevated": true,
                         "runAsSystem": true,
-                        "scriptUri": "https://raw.githubusercontent.com/RayPering/WindowsVirtualDesktop/Dev/AIB/TeamWVD.ps1"
+                        "scriptUri": "https://raw.githubusercontent.com/RayPering/WindowsVirtualDesktop/Dev/AIB/TeamsWVD.ps1"
                     },
                     {
                         "type": "WindowsRestart",
