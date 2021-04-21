@@ -5,6 +5,8 @@
     This runbook does the following:
         Inports an image template from a GitHub repo
         Triggers the build of the image template and distributes the final image
+        The runbook could be triggered via a power app, api call or logic using a webhook
+        Logic appexample below shows basic HHTP WebHook trigger
 
 .LOGIC_APP_EXAMPLE
     {
