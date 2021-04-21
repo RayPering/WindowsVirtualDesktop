@@ -3,18 +3,19 @@
     "contentVersion": "1.0.0.0",
     "parameters": {
         "rgName": {
-            "value": "SDS-UKW-P-RG-WVDShared"
+            "value": "SDS-UKW-C-RG-WVDShared"
         },
         "rgLocation": {
             "value": "ukwest"
         },
         "tags": {
             "value": {
-                " Application": "WVD",
+                "Application": "WVD",
                 "CustomerRef": "SDS",
                 "EnsonoSupportLevel": "Fully-Managed",
-                "Environment ": "Production",
-                "Role": "WVD Shared Resources",
+                "Environment ": "Non-Production",
+                "Non-Production Details": "POC",
+                "Role": "WVD Resources",
                 "Charge to SDS": "True",
                 "Charge to HIE": "False",
                 "Charge to SEN": "False",
