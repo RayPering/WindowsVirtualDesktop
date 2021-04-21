@@ -13,7 +13,7 @@
                 "Application": "WVD",
                 "CustomerRef": "SDS",
                 "EnsonoSupportLevel": "Fully-Managed",
-                "Environment ": "Production",
+                "Environment": "Non-Production",
                 "Non-Production Detail": "POC",
                 "Role": "WVD Resources",
                 "Charge to SDS": "True",
