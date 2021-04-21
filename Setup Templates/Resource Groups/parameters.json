@@ -14,7 +14,7 @@
                 "CustomerRef": "SDS",
                 "EnsonoSupportLevel": "Fully-Managed",
                 "Environment ": "Non-Production",
-                "Non-Production Details": "POC",
+                "Non-Production Detail": "POC",
                 "Role": "WVD Resources",
                 "Charge to SDS": "True",
                 "Charge to HIE": "False",
