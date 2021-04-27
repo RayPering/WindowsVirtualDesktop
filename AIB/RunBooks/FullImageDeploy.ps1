@@ -9,44 +9,56 @@
         Logic appexample below shows basic HHTP WebHook trigger
 
 .LOGIC_APP_EXAMPLE
-    {
-        "definition": { 
-            "$schema": "https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#",
-            "actions": {},
-            "contentVersion": "1.0.0.0",
-            "outputs": {},
-            "parameters": {},
-            "triggers": {
-                "HTTP_Webhook": {
-                    "inputs": {
-                        "subscribe": {
-                            "body": {
-                                "callbackUrl": "@{listCallbackURL()}",
-                                "aibResourceGroup": "<AIBResourceGroup>",
-                                "imageResourceGroup": "<ImageDistributionResourceGroup>",
-                                "identityName": "<AIBIdentity>",
-                                "location": "<BuildRegion>",
-                                "DistLocation": "<ImageDistributionRegion>",
-                                "subscriptionID": "<SubscriptionID>",
-                                "aadTenantId": "<AADTenantID>",
-                                "imageTemplateName": "<ImageTemplateName>",
-                                "imageDefName": "<SIGImageDefinition>",
-                                "sigGalleryName": "<SIGName>",
-                                "runOutputName": "sigOutput",
-                                "templateUrl": "<TemplateURL>",
-                                "templateFilePath": "<TemplateName>"
-                            },
-                            "method": "POST",
-                            "uri": "<RunbookWebhookUrl>"
+{
+    "definition": { 
+        "$schema": "https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#",
+        "actions": {
+            "HTTP_Webhook": {
+                "inputs": {
+                    "subscribe": {
+                        "body": {
+                            "callbackUrl": "@{listCallbackURL()}",
+                            "aibResourceGroup": "<AIBResourceGroup>",
+                            "imageResourceGroup": "<ImageDistributionResourceGroup>",
+                            "identityName": "<AIBIdentity>",
+                            "location": "<BuildRegion>",
+                            "DistLocation": "<ImageDistributionRegion>",
+                            "subscriptionID": "<SubscriptionID>",
+                            "aadTenantId": "<AADTenantID>",
+                            "imageTemplateName": "<ImageTemplateName>",
+                            "imageDefName": "<SIGImageDefinition>",
+                            "sigGalleryName": "<SIGName>",
+                            "runOutputName": "sigOutput",
+                            "templateUrl": "<TemplateURL>",
+                            "templateFilePath": "<TemplateName>"
                         },
-                        "unsubscribe": {}
+                        "method": "POST",
+                        "uri": "<RunbookWebhookUrl>"
                     },
-                    "type": "HttpWebhook"
-                }
+                    "unsubscribe": {}
+                },
+                "runAfter": {}.
+                "type": "HttpWebhook"
             }
         },
-        "parameters": {}
-    }
+        "contentVersion": "1.0.0.0",
+        "outputs": {},
+        "parameters": {},
+        "triggers": {
+            "HTTP_Webhook_Trigger": {
+                "inputs": {
+                    "subscribe": {
+                        "method": "POST",
+                        "uri": "<RunbookWebhookUrl>"
+                    },
+                    "unsubscribe": {}
+                },
+                "type": "HttpWebhook"
+            }
+        }
+    },
+    "parameters": {}
+}
 .NOTES 
     Author:       Ray Pering
     Version:      1.0.0     Initial Build
