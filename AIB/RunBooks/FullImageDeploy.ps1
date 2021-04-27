@@ -37,7 +37,7 @@
                     },
                     "unsubscribe": {}
                 },
-                "runAfter": {}.
+                "runAfter": {},
                 "type": "HttpWebhook"
             }
         },
