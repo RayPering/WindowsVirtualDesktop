@@ -1,5 +1,5 @@
 {
-    "Name": "Azure Image Builder Image Def1617971398",
+    "Name": "Azure Image Builder Image Def1619533234",
     "IsCustom": true,
     "Description": "Image Builder access to create resources for the image build, you should delete or split out as appropriate",
     "Actions": [
@@ -16,7 +16,7 @@
   
     ],
     "AssignableScopes": [
-      "/subscriptions/4e15ceda-be55-4b64-bf9c-eee2a950b9cb/resourceGroups/RG-ENS-EUW-WVD-AIB"
+      "/subscriptions/f77028a1-4f75-422e-b923-a2723aa6f8af/resourceGroups/RG-ENS-EUW-WVD-AIB"
     ]
   }
 
