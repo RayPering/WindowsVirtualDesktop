@@ -24,16 +24,7 @@
             "properties": {},
             "tags": {
                 "Application": "WVD",
-                "CustomerRef": "SDS",
-                "EnsonoSupportLevel": "Fully-Managed",
-                "Environment": "Non-Production",
-                "Role": "WVD Resources",
-                "Charge to SDS": "True",
-                "Charge to HIE": "False",
-                "Charge to SEN": "False",
-                "Charge to SSE": "False",
-                "BudgetCode": "BEG60102",
-                "Organisation": "SDS"
+                "Role": "WVD Resources"
             }
         }
     ]
