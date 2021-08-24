@@ -12,11 +12,8 @@
             "type": "string"
         }
     },
-    
     "variables": {
     },
-
-
     "resources": [
       {
         "name": "[parameters('imageTemplateName')]",
@@ -31,14 +28,11 @@
             "identity": {
                 "type": "UserAssigned",
                         "userAssignedIdentities": {
-                        "<imgBuilderId>": {}
-                            
+                        "<imgBuilderId>": {}                           
                     }
                     },
-        
         "properties": {
             "buildTimeoutInMinutes" : 120,
-
             "vmProfile": 
                     {
                     "vmSize": "Standard_D2_v2",
@@ -52,8 +46,7 @@
                     "sku": "20h2-evd",
                     "version": "latest"
             },
-            "customize": [
-                    
+            "customize": [ 
                     {
                         "type": "PowerShell",
                         "name": "OptimizeOS",
@@ -67,18 +60,6 @@
                         "restartTimeout": "5m"
                     },
                     {
-                        "type": "PowerShell",
-                        "name": "Install Teams",
-                        "runElevated": true,
-                        "runAsSystem": true,
-                        "scriptUri": "https://raw.githubusercontent.com/RayPering/WindowsVirtualDesktop/Dev/AIB/TeamsWVD.ps1"
-                    },
-                    {
-                        "type": "WindowsRestart",
-                        "restartCheckCommand": "write-host 'restarting post Teams Install'",
-                        "restartTimeout": "5m"
-                    },
-                    {
                         "type": "WindowsUpdate",
                         "searchCriteria": "IsInstalled=0",
                         "filters": [
@@ -87,7 +68,6 @@
                                     ],
                         "updateLimit": 20
                     }
-
             ],
             "distribute": 
             [
@@ -107,7 +87,5 @@
             ]
             }
         }
-
-    
     ]
 }    
